@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>文本精简器 — 简洁、高效、可扩展</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>剪字坊</h1>
+      <p class="subtitle">输入文本 → 自动分析、删减与简化。支持中文（亦兼容英文）。</p>
+    </header>
+
+    <main>
+      <section class="left">
+        <label for="inputText">输入文本（支持粘贴或导入文件）</label>
+        <textarea id="inputText" placeholder="在此粘贴或输入文本..." rows="12"></textarea>
+
+        <div class="file-row">
+          <input type="file" id="fileInput" accept=".txt" />
+          <button id="loadFileBtn">导入到文本框</button>
+        </div>
+
+        <div class="controls">
+          <div class="presets">
+            <button class="preset" data-ratio="20">轻度</button>
+            <button class="preset" data-ratio="40">中度</button>
+            <button class="preset" data-ratio="70">强力</button>
+          </div>
+
+          <label>压缩目标：
+            <input type="range" id="ratio" min="10" max="90" value="40" />
+            <span id="ratioLabel">目标保留 60%</span>
+          </label>
+
+          <label>去重阈值：
+            <input type="range" id="dupThreshold" min="50" max="95" value="80" />
+            <span id="dupLabel">相似度阈值 0.80</span>
+          </label>
+
+          <label><input type="checkbox" id="cleanFillers" checked /> 去除口头语/填充词</label>
+          <label><input type="checkbox" id="dedupe" checked /> 句子去重</label>
+          <label><input type="checkbox" id="preserveOrder" checked /> 保持原文句子顺序（仅抽取）</label>
+        </div>
+
+        <div class="actions">
+          <button id="simplifyBtn">立即精简</button>
+          <button id="clearBtn">清空</button>
+        </div>
+
+        <div class="stats">
+          <div>原文：<span id="origChars">0</span> 字</div>
+          <div>精简后：<span id="newChars">0</span> 字</div>
+          <div>减少：<span id="reduction">0</span>%</div>
+        </div>
+      </section>
+
+      <section class="right">
+        <label for="outputText">精简结果（即时预览）</label>
+        <textarea id="outputText" rows="12" readonly></textarea>
+
+        <div class="removed">
+          <h3>被移除或合并的句子</h3>
+          <ul id="removedList"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <small>实现说明：基于规则的分句、清洗、去重与关键句评分。适合快速、离线的文本精简原型。</small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
